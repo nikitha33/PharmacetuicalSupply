@@ -92,7 +92,7 @@ sleep 1
 
 echo "—---------------package chaincode—-------------"
 
-peer lifecycle chaincode package supply.tar.gz --path ${PWD}/../Chaincode/ --lang golang --label supply_1.0
+peer lifecycle chaincode package supply.tar.gz --path ${PWD}/../chaincode/ --lang golang --label supply_1.0
 sleep 1
 
 
@@ -109,7 +109,7 @@ export CC_PACKAGE_ID=$(peer lifecycle chaincode calculatepackageid supply.tar.gz
 
 echo "—---------------Approve chaincode in Manufacturer peer—-------------"
 
-peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.auto.com --channelID $CHANNEL_NAME --name Project-Pharma --version 1.0 --collections-config ../Chaincode/collection-automobile.json --package-id $CC_PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA --waitForEvent
+peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.auto.com --channelID $CHANNEL_NAME --name Project-Pharma --version 1.0 --collections-config ../chaincode/collection-pharmasupply.json --package-id $CC_PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA --waitForEvent
 sleep 2
 
 export CORE_PEER_LOCALMSPID=DealerMSP 
@@ -160,7 +160,7 @@ peer lifecycle chaincode queryinstalled
 
 echo "—---------------Approve chaincode in Dealer peer—-------------"
 
-peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.auto.com --channelID $CHANNEL_NAME --name Project-Pharma --version 1.0 --collections-config ../Chaincode/collection-automobile.json --package-id $CC_PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA --waitForEvent
+peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.auto.com --channelID $CHANNEL_NAME --name Project-Pharma --version 1.0 --collections-config ../chaincode/collection-pharmasupply.json --package-id $CC_PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA --waitForEvent
 sleep 1
 
 export CORE_PEER_LOCALMSPID=PharmaciesMSP 
@@ -212,14 +212,14 @@ peer lifecycle chaincode queryinstalled
 
 echo "—---------------Approve chaincode in Pharmacies peer—-------------"
 
-peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.auto.com --channelID $CHANNEL_NAME --name Project-Pharma --version 1.0 --collections-config ../Chaincode/collection-automobile.json --package-id $CC_PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA --waitForEvent
+peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.auto.com --channelID $CHANNEL_NAME --name Project-Pharma --version 1.0 --collections-config ../chaincode/collection-pharmasupply.json --package-id $CC_PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA --waitForEvent
 sleep 1
 
 echo "—---------------Commit chaincode in Pharmacies peer—-------------"
 
-peer lifecycle chaincode checkcommitreadiness --channelID $CHANNEL_NAME --name Project-Pharma--version 1.0 --sequence 1 --collections-config ../Chaincode/collection-automobile.json --tls --cafile $ORDERER_CA --output json
+peer lifecycle chaincode checkcommitreadiness --channelID $CHANNEL_NAME --name Project-Pharma--version 1.0 --sequence 1 --collections-config ../chaincode/collection-pharmasupply.json --tls --cafile $ORDERER_CA --output json
 
-peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.auto.com --channelID $CHANNEL_NAME --name Project-Pharma --version 1.0 --sequence 1 --collections-config ../Chaincode/collection-automobile.json --tls --cafile $ORDERER_CA --peerAddresses localhost:7051 --tlsRootCertFiles $MANUFACTURER_PEER_TLSROOTCERT --peerAddresses localhost:9051 --tlsRootCertFiles $DEALER_PEER_TLSROOTCERT --peerAddresses localhost:11051 --tlsRootCertFiles $PHARMACIES_PEER_TLSROOTCERT
+peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.auto.com --channelID $CHANNEL_NAME --name Project-Pharma --version 1.0 --sequence 1 --collections-config ../chaincode/collection-pharmasupply.json --tls --cafile $ORDERER_CA --peerAddresses localhost:7051 --tlsRootCertFiles $MANUFACTURER_PEER_TLSROOTCERT --peerAddresses localhost:9051 --tlsRootCertFiles $DEALER_PEER_TLSROOTCERT --peerAddresses localhost:11051 --tlsRootCertFiles $PHARMACIES_PEER_TLSROOTCERT
 sleep 1
 
 peer lifecycle chaincode querycommitted --channelID $CHANNEL_NAME --name Project-Pharma --cafile $ORDERER_CA
