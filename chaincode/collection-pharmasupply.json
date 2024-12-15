@@ -1,6 +1,7 @@
 [
     {
-      "name": "DrugCollection",
+      
+      "name": "PrivateDrugCollection",
       "policy": "OR('ManufacturerMSP.member', 'DealerMSP.member')",
       "requiredPeerCount": 1,
       "maxPeerCount": 1,
