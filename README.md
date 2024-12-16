@@ -161,6 +161,17 @@ fabric-ca-client register --caname ca-manufacturer --id.name user2 --id.secret u
 
 fabric-ca-client enroll -u https://user2:user2pw@localhost:7054 --caname ca-manufacturer -M "${PWD}/organizations/peerOrganizations/manufacturer.auto.com/users/User2@manufacturer.auto.com/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/manufacturer/ca-cert.pem"  
 ```
+# To build the event and api
+```
+go run .
+```
+It starts chaincode for event listening and redirect to browser
+```
+Browse http://localhost:8080/
+localhost:8080/api/create/drug - Its the path
+and invoke all the details in the body
+```
+
 
 
 
